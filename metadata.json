@@ -1,0 +1,9 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "type": "QuickStart",
+    "itemDisplayName": "Create a Linux VM to be used as a Workspace for the SDN Lab",
+    "description": "A workspace which ease system setup. Focus on the code!",
+    "summary": "Create a Workspace for SDN Lab.",
+    "githubUsername": "GiovanniGrieco",
+    "dateUpdated": "2022-05-24"
+  }
