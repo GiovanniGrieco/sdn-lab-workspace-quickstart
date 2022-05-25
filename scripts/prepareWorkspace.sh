@@ -61,7 +61,8 @@ apt install -y --no-install-recommends \
     xfce4-Terminal          \
     xrdp		            \
     xorgxrdp	 	        \
-    xubuntu-icon-theme
+    xubuntu-icon-theme      \
+    xterm
 # Remove default JRE pre-installed by Ubuntu. Floodlight needs outdated JRE (1.8)
 bash -c "dpkg-query --list 'openjdk-[^8]*' | grep ^ii | cut -d ' ' -f 3 | xargs apt -y remove"
 apt autoremove -y
