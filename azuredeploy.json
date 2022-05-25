@@ -32,7 +32,7 @@
     },
     "variables": {
         "addressPrefix": "10.0.0.0/24",
-        "artifactsLocation": "https://raw.githubusercontent.com/GiovanniGrieco/iod-sim-workspace-quickstart/master",
+        "artifactsLocation": "https://raw.githubusercontent.com/GiovanniGrieco/sdn-lab-workspace-quickstart/master",
         "imageOffer": "0001-com-ubuntu-server-jammy",
         "imagePublisher": "canonical",
         "imageSKU": "22_04-lts",
