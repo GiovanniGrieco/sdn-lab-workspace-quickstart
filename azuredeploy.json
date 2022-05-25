@@ -87,11 +87,11 @@
                         }
                     },
                     {
-                        "name": "RDP",
+                        "name": "RDPPolibaMasq",
                         "properties": {
                             "protocol": "TCP",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "3389",
+                            "destinationPortRange": "53",
                             "sourceAddressPrefix": "*",
                             "destinationAddressPrefix": "*",
                             "access": "Allow",
