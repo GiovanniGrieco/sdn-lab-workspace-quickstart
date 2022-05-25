@@ -133,4 +133,5 @@ EOF"
 bash -c "cat /etc/ufw/before.rules.bak >> /etc/ufw/before.rules"
 
 ufw allow ssh
-ufw --force enable
+ufw reload
+ufw disable
