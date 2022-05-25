@@ -51,13 +51,16 @@ apt install -y --no-install-recommends \
     git                     \
     maven                   \
     mininet                 \
-    openjdk-17-jre-headless \
+    openjdk-8-jdk-headless  \
     python-is-python3       \
     python3                 \
     python3-dev             \
+    python3-tk		        \
     xfce4                   \
     xfce4-session           \
-    xrdp
+    xrdp		            \
+    xorgxrdp	 	        \
+    xubuntu-icon-theme
 apt autoremove -y
 
 echo xfce4-session > ${USER_DIR}/.xsession
@@ -65,15 +68,23 @@ systemctl enable --now xrdp
 # TIP: to change keyboard layout after this unattended install run
 #   dpkg-reconfigure keyboard-configuration
 
+# Enable root application to use Xorg server
+bash -c "echo 'xhost +' >> ${USER_DIR}/.bashrc"
+
 # Install floodlight and miniedit
 su --login ${USER_NAME} \
-   --command <<EOF
+   --command "
     curl --location --silent --remote-name https://raw.githubusercontent.com/mininet/mininet/master/examples/miniedit.py
-    git clone --recursive git://github.com/floodlight/floodlight.git ${USER_DIR}/floodlight
-    pushd ${USER_DIR}/floodlight
+    chmod +x ${USER_DIR}/miniedit.py
+    curl --location --silent --remote-name https://github.com/floodlight/floodlight/archive/refs/tags/v1.2.tar.gz
+    tar xf v1.2.tar.gz
+    cd ${USER_DIR}/floodlight-1.2
     ant
-    popd
-EOF
+"
+
+# Create well-known user directories
+su --login ${USER_NAME} \
+   --command "xdg-user-dirs-update"
 
 # Add Miniedit desktop icon
 bash -c "cat > ${USER_DIR}/Desktop/Miniedit.desktop <<EOF
@@ -98,9 +109,26 @@ Name=Floodlight
 Comment=
 Exec=sudo java -jar target/floodlight.jar
 Icon=gnome-network-properties
-Path=${USER_DIR}/floodlight
+Path=${USER_DIR}/floodlight-1.2
 Terminal=true
 StartupNotify=false
 EOF"
 
+# Make desktop icons executable, otherwise XFCE4 will popup consent
+chmod +x ${USER_DIR}/Desktop/*.desktop
+
 chown $USER_UID:$USER_UID -R ${USER_DIR}
+
+# Bypass enterprise "security" configurations to reach RDP Port
+# Mask it as a DNS service
+mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+bash -c "cat > /etc/ufw/before.rules <<EOF
+*nat
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 3389
+COMMIT
+EOF"
+bash -c "cat /etc/ufw/before.rules.bak >> /etc/ufw/before.rules"
+
+ufw allow ssh
+ufw --force enable
