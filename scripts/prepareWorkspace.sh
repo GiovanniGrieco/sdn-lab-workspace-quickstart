@@ -58,6 +58,7 @@ apt install -y --no-install-recommends \
     python3-tk		        \
     xfce4                   \
     xfce4-session           \
+    xfce4-Terminal          \
     xrdp		            \
     xorgxrdp	 	        \
     xubuntu-icon-theme
