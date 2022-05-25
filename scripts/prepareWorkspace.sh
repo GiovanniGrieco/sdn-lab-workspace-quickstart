@@ -43,11 +43,10 @@ EOF"
 echo 'nameserver 1.1.1.1' >> /etc/resolv.conf
 
 apt update
-apt remove -y \
-    snapd
 apt install -y --no-install-recommends \
     ant                     \
     curl                    \
+    firefox                 \
     git                     \
     maven                   \
     mininet                 \
@@ -56,6 +55,7 @@ apt install -y --no-install-recommends \
     python3                 \
     python3-dev             \
     python3-tk		        \
+    xbitmaps                \
     xfce4                   \
     xfce4-session           \
     xfce4-Terminal          \
