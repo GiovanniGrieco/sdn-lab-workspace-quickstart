@@ -58,7 +58,7 @@ apt install -y --no-install-recommends \
     xbitmaps                \
     xfce4                   \
     xfce4-session           \
-    xfce4-Terminal          \
+    xfce4-terminal          \
     xrdp		            \
     xorgxrdp	 	        \
     xubuntu-icon-theme      \
