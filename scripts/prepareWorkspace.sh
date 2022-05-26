@@ -51,6 +51,7 @@ apt install -y --no-install-recommends \
     maven                   \
     mininet                 \
     openjdk-8-jdk-headless  \
+    openvswitch-switch      \
     python-is-python3       \
     python3                 \
     python3-dev             \
