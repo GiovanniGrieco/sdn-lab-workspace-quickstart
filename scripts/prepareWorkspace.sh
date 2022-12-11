@@ -125,18 +125,18 @@ chmod +x ${USER_DIR}/Desktop/*.desktop
 chown $USER_UID:$USER_UID -R ${USER_DIR}
 
 # Bypass enterprise "security" configurations to reach RDP Port
-# Mask it as a DNS service
-mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-bash -c "cat > /etc/ufw/before.rules <<EOF
-*nat
-:PREROUTING ACCEPT [0:0]
--A PREROUTING -p tcp --dport 53 -j REDIRECT --to-port 3389
-COMMIT
+# Mask it as a FTP service.
+# Given that 21 is a priviledged port and XRDP is run as an 
+# unpriviledged user, we need to add a systemd capability in order 
+# for the service to use such ports.
+mkdir -p /etc/systemd/system/xrdp.service.d/
+bash -c "cat > /etc/systemd/system/xrdp.service.d/override.conf <<EOF
+[Service]
+AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF"
-bash -c "cat /etc/ufw/before.rules.bak >> /etc/ufw/before.rules"
+bash -c "sed -i s/port=3389/port=21/ /etc/xrdp/xrdp.ini"
 
 ufw allow ssh
-ufw allow 53
+ufw allow 21/tcp
 ufw --force enable
 ufw reload
-ufw disable
