@@ -42,16 +42,26 @@ EOF"
 
 echo 'nameserver 1.1.1.1' >> /etc/resolv.conf
 
+# P4 Official Repo
+bash -c "cat > /etc/apt/sources.list.d/home:p4lang.list <<EOF
+deb http://download.opensuse.org/repositories/home:/p4lang/xUbuntu_22.04/ /
+EOF"
+curl 'http://download.opensuse.org/repositories/home:/p4lang/xUbuntu_22.04/Release.key' > /etc/apt/trusted.gpg.d/home:p4lang.asc
+
 apt update
 apt install -y --no-install-recommends \
     ant                     \
     curl                    \
     firefox                 \
     git                     \
+    make                    \
     maven                   \
     mininet                 \
     openjdk-8-jdk-headless  \
     openvswitch-switch      \
+    p4lang-p4c              \
+    p4lang-bmv2             \
+    p4lang-pi               \
     python-is-python3       \
     python3                 \
     python3-dev             \
