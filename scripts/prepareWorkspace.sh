@@ -135,6 +135,8 @@ bash -c "cat > /etc/systemd/system/xrdp.service.d/override.conf <<EOF
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 EOF"
 bash -c "sed -i s/port=3389/port=21/ /etc/xrdp/xrdp.ini"
+systemctl daemon-reload
+systemctl restart xrdp
 
 ufw allow ssh
 ufw allow 21/tcp
