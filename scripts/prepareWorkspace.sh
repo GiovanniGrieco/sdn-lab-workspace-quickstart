@@ -56,6 +56,7 @@ apt install -y --no-install-recommends \
     python3                 \
     python3-dev             \
     python3-tk		        \
+    wireshark               \
     xbitmaps                \
     xfce4                   \
     xfce4-session           \
@@ -67,6 +68,10 @@ apt install -y --no-install-recommends \
 # Remove default JRE pre-installed by Ubuntu. Floodlight needs outdated JRE (1.8)
 bash -c "dpkg-query --list 'openjdk-[^8]*' | grep ^ii | cut -d ' ' -f 3 | xargs apt -y remove"
 apt autoremove -y
+
+# Enable rootless wireshark
+bash -c "yes | DEBIAN_FRONTEND=teletype dpkg-reconfigure wireshark-common"
+usermod -aG wireshark ${USER_NAME}
 
 echo xfce4-session > ${USER_DIR}/.xsession
 systemctl enable --now xrdp
