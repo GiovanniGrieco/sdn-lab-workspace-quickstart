@@ -68,6 +68,7 @@ apt install -y --no-install-recommends \
     python3-tk		        \
     wireshark               \
     xbitmaps                \
+    xdg-user-dirs           \
     xfce4                   \
     xfce4-session           \
     xfce4-terminal          \
@@ -106,8 +107,11 @@ su --login ${USER_NAME} \
 su --login ${USER_NAME} \
    --command "xdg-user-dirs-update"
 
+# Desktop directory is named after user language settings
+DESKTOP_DIR=$(su --login ${USER_NAME} --command "xdg-user-dir DESKTOP")
+
 # Add Miniedit desktop icon
-bash -c "cat > ${USER_DIR}/Desktop/Miniedit.desktop <<EOF
+bash -c "cat > ${USER_DIR}/${DESKTOP_DIR}/Miniedit.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -121,7 +125,7 @@ StartupNotify=false
 EOF"
 
 # Add Floodlight desktop icon
-bash -c "cat > ${USER_DIR}/Desktop/Floodlight.desktop <<EOF
+bash -c "cat > ${USER_DIR}/${DESKTOP_DIR}/Floodlight.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -135,7 +139,7 @@ StartupNotify=false
 EOF"
 
 # Make desktop icons executable, otherwise XFCE4 will popup consent
-chmod +x ${USER_DIR}/Desktop/*.desktop
+chmod +x ${USER_DIR}/${DESKTOP_DIR}/*.desktop
 
 chown $USER_UID:$USER_UID -R ${USER_DIR}
 
