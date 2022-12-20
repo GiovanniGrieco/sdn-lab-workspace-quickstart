@@ -111,7 +111,7 @@ su --login ${USER_NAME} \
 DESKTOP_DIR=$(su --login ${USER_NAME} --command "xdg-user-dir DESKTOP")
 
 # Add Miniedit desktop icon
-bash -c "cat > ${USER_DIR}/${DESKTOP_DIR}/Miniedit.desktop <<EOF
+bash -c "cat > ${DESKTOP_DIR}/Miniedit.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -125,7 +125,7 @@ StartupNotify=false
 EOF"
 
 # Add Floodlight desktop icon
-bash -c "cat > ${USER_DIR}/${DESKTOP_DIR}/Floodlight.desktop <<EOF
+bash -c "cat > ${DESKTOP_DIR}/Floodlight.desktop <<EOF
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -139,7 +139,7 @@ StartupNotify=false
 EOF"
 
 # Make desktop icons executable, otherwise XFCE4 will popup consent
-chmod +x ${USER_DIR}/${DESKTOP_DIR}/*.desktop
+chmod +x ${DESKTOP_DIR}/*.desktop
 
 chown $USER_UID:$USER_UID -R ${USER_DIR}
 
